@@ -1,75 +1,50 @@
 #include "main.h"
 #include <stdlib.h>
 /**
-* wordCounterRec - count num of words recursively
-* @str: pointer to char
-* @i: current index
-* Return: number of words
-**/
-int wordCounterRec(char *str, int i)
+  *argstostr - concatenates all arguments of the program.
+  *@ac: argument count.
+  *@av: pointer to array of size ac.
+  *Return: NULL if ac == 0 or av == null, Pointer to new string.
+  *NULL on fail.
+  */
+char *argstostr(int ac, char **av)
 {
-	if (str[i] == '\0')
-		return (0);
-	if (str[i] == ' ' && str[i + 1] != ' ' && str[i + 1] != '\0')
-		return (1 + wordCounterRec(str, i + 1));
-	return (wordCounterRec(str, i + 1));
-}
-/**
-* word_counter - counts number of words in 1d array of strings
-* @str: pointer to char
-* Return: number of words
-**/
-int word_counter(char *str)
-{
-	if (str[0] != ' ')
-		return (1 + wordCounterRec(str, 0));
-	return (wordCounterRec(str, 0));
-}
-/**
-* strtow - splits a string into words.
-* @str: string to be splitted
-* Return: pointer to an array of strings (words) or null
-**/
-char **strtow(char *str)
-{
-	char **strDup;
-	int i, n, m, words;
+	int i, j, k, size;
+	char *arg;
 
-	if (str == NULL || str[0] == 0)
-		return (NULL);
-	words = word_counter(str);
-	if (words < 1)
-		return (NULL);
-	strDup = malloc(sizeof(char *) * (words + 1));
-	if (strDup == NULL)
+	size = 0;
+	k = 0;
+	if (ac == 0 || av == NULL)
 		return (NULL);
 	i = 0;
-	while (i < words && *str != '\0')
+	while (i < ac)
 	{
-		if (*str != ' ')
+		j = 0;
+		while (av[i][j])
 		{
-			n = 0;
-			while (str[n] != ' ')
-				n++;
-			strDup[i] = malloc(sizeof(char) * (n + 1));
-			if (strDup[i] == NULL)
-			{
-				while (--i >= 0)
-					free(strDup[--i]);
-				free(strDup);
-				return (NULL);
-			}
-			m = 0;
-			while (m < n)
-			{
-				strDup[i][m] = *str;
-				m++, str++;
-			}
-			strDup[i][m] = '\0';
-			i++;
+			size++;
+			j++;
 		}
-		str++;
+		size++;
+		i++;
 	}
-	strDup[i] = '\0';
-	return (strDup);
+	arg = malloc((sizeof(char) * size) + 1);
+	if (arg == NULL)
+		return (NULL);
+	i = 0;
+	while (i < ac)
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			arg[k] = av[i][j];
+			j++;
+			k++;
+		}
+		arg[k] = '\n';
+		k++;
+		i++;
+	}
+	arg[k] = '\0';
+	return (arg);
 }
