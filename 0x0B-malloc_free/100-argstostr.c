@@ -1,53 +1,50 @@
-#include <stdio.h>
 #include "main.h"
-
+#include <stdlib.h>
 /**
- * _strlen - returns the length of a string
- * @s: string s
- * Return: length of string
- */
-int _strlen(char *s)
-{
-	int len = 0;
-
-	while (*s++)
-		len++;
-
-	return (len);
-}
-
-/**
- * argstostr - concatenates all the arguments of your program
- * @ac: argument count
- * @av: argument vector
- * Return: concatenated string
- */
+  *argstostr - concatenates all arguments of the program.
+  *@ac: argument count.
+  *@av: pointer to array of size ac.
+  *Return: NULL if ac == 0 or av == null, Pointer to new string.
+  *NULL on fail.
+  */
 char *argstostr(int ac, char **av)
 {
-	int i, j, len, total;
-	int m = 0;
-	char *ptr;
+	int i, j, k, size;
+	char *arg;
 
-	if (!ac || !av)
+	size = 0;
+	k = 0;
+	if (ac == 0 || av == NULL)
 		return (NULL);
-	total = 0;
-	for (i = 0; i < ac; i++)
+	i = 0;
+	while (i < ac)
 	{
-		len = _strlen(av[i]) + 1;
-		total += len;
-	}
-	ptr = malloc(sizeof(char) * total + 1);
-	if (!ptr)
-		return (NULL);
-	for (i = 0; i < ac; i++)
-	{
-		len = _strlen(av[i]);
-		for (j = 0; j < len; j++, m++)
+		j = 0;
+		while (av[i][j])
 		{
-			ptr[m] = av[i][j];
+			size++;
+			j++;
 		}
-		ptr[m++] = '\n';
+		size++;
+		i++;
 	}
-	ptr[m] = '\0';
-	return (ptr);
+	arg = malloc((sizeof(char) * size) + 1);
+	if (arg == NULL)
+		return (NULL);
+	i = 0;
+	while (i < ac)
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			arg[k] = av[i][j];
+			j++;
+			k++;
+		}
+		arg[k] = '\n';
+		k++;
+		i++;
+	}
+	arg[k] = '\0';
+	return (arg);
 }
