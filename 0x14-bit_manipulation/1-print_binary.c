@@ -12,7 +12,6 @@ int shifts;
 if (n == 0)
 {
 	printf("0");
-	return;
 }
 for (temp = n, shifts = 0; (temp >>= 1) > 0; shifts++)
 	;
