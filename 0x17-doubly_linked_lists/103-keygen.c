@@ -8,7 +8,7 @@
  *    * @usrn: username
  *     * @len: length of username
  *      * Return: the biggest number
- *       */
+ */
 int f4(char *usrn, int len)
 {
 	int ch;
@@ -37,7 +37,7 @@ int f4(char *usrn, int len)
  *    * @usrn: username
  *     * @len: length of username
  *      * Return: multiplied char
- *       */
+ */
 int f5(char *usrn, int len)
 {
 	int ch;
@@ -59,7 +59,7 @@ int f5(char *usrn, int len)
  *   *
  *    * @usrn: username
  *     * Return: a random char
- *      */
+ */
 int f6(char *usrn)
 {
 	int ch;
@@ -82,7 +82,7 @@ int f6(char *usrn)
  *    * @argc: arguments count
  *     * @argv: arguments vector
  *      * Return: Always 0
- *       */
+ */
 int main(int argc, char **argv)
 {
 	char keygen[7];
